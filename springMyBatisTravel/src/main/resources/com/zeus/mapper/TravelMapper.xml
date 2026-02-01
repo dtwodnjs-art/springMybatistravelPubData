@@ -62,4 +62,21 @@
 		DELETE FROM travel_info WHERE tno = #{tno}
 	</delete>
 
+	<select id="search" resultType="com.zeus.domain.Travel">
+		SELECT tno, title, destination, trip_date as tripDate, regdate
+		FROM travel_info
+		WHERE 1=1
+		<if test="searchType == 'title'">
+			AND title LIKE '%' || #{keyword} || '%'
+		</if>
+		<if test="searchType == 'destination'">
+			AND destination LIKE '%' || #{keyword} || '%'
+		</if>
+		<if test="searchType == 'all'">
+			AND (title LIKE '%' || #{keyword} || '%' OR destination LIKE '%' ||
+			#{keyword} || '%')
+		</if>
+		ORDER BY tno DESC
+	</select>
+
 </mapper>

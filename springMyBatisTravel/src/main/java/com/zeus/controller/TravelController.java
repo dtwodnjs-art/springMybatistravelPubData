@@ -79,7 +79,7 @@ public class TravelController {
 	
 	@PostMapping("/modify")
 	public String modify(Travel travel, TravelDetail detail, Model model) {
-		//TODO: process POST request
+		
 		try {
 			travelService.modify(travel, detail);
 	        model.addAttribute("message", "여행 계획이 성공적으로 수정되었습니다.");
@@ -94,7 +94,7 @@ public class TravelController {
 	
 	@GetMapping("/remove")
 	public String remove(int tno, Model model) {
-		//TODO: process POST request
+		
 		try {
 			travelService.remove(tno);
 	        model.addAttribute("message", tno + "번 여행 계획이 삭제되었습니다.");
@@ -105,6 +105,14 @@ public class TravelController {
 	        return "travel/failed";
 		}
 		
+	}
+	
+	@GetMapping("/search")
+	public String search(String searchType,String keyword,Model model) throws Exception {
+		log.info("검색 요청 - 타입: " + searchType + ", 키워드: " + keyword);
+		List<Travel> searchResult = travelService.search(searchType, keyword);
+		model.addAttribute("travelList",searchResult);
+	    return "travel/list"; 
 	}
 	
 	

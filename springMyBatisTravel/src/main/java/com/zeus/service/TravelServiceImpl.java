@@ -37,13 +37,13 @@ public class TravelServiceImpl implements TravelService {
 
 	@Override
 	public Travel read(int tno) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return mapper.read(tno);
 	}
 
 	@Override
 	public TravelDetail readDetail(int tno) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return mapper.readDetail(tno);
 	}
 
@@ -64,8 +64,7 @@ public class TravelServiceImpl implements TravelService {
 
 	@Override
 	public List<Travel> search(String searchType, String keyword) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.search(searchType, keyword);
 	}
 
 }
