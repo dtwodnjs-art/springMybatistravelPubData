@@ -1,3 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zeus.mapper.TravelMapper"></mapper>
+<mapper namespace="com.zeus.mapper.TravelMapper">
+
+    <select id="list" resultType="com.zeus.domain.Travel">
+        SELECT tno, title, destination, trip_date as tripDate, regdate, moddate
+        FROM travel_info
+        ORDER BY tno DESC
+    </select>
+
+    </mapper>
