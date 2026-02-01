@@ -105,9 +105,4 @@ UPDATE travel_detail SET transport = '렌터카' WHERE tno = 1;
 DELETE FROM travel_info WHERE tno = 1;
 
 
-## 💡 핵심 학습 포인트
 
-1. **데이터 정합성**: `@Transactional`을 사용하여 두 개의 테이블에 데이터가 동시에 입력되거나 수정될 때의 안정성을 확보했습니다.
-2. **MyBatis selectKey**: 부모 테이블에서 생성된 시퀀스 번호를 즉시 가져와 자식 테이블 등록 시 사용하는 로직을 구현했습니다.
-3. **날짜 데이터 바인딩**: `@DateTimeFormat`을 활용하여 브라우저의 날짜 문자열을 자바의 `Date` 객체로 자동 변환하는 법을 익혔습니다.
-4. **사용자 경험(UX)**: `confirm()` 함수를 통한 삭제 재확인, 검색 키워드 유지 기능 등을 통해 사용 편의성을 높였습니다.
