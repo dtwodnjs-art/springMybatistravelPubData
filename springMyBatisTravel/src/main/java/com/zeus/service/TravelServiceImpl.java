@@ -38,24 +38,27 @@ public class TravelServiceImpl implements TravelService {
 	@Override
 	public Travel read(int tno) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.read(tno);
 	}
 
 	@Override
 	public TravelDetail readDetail(int tno) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.readDetail(tno);
 	}
 
 	@Override
+	@Transactional
 	public void modify(Travel travel, TravelDetail detail) throws Exception {
-		// TODO Auto-generated method stub
+		mapper.update(travel);
+		mapper.updateDetail(detail);
 
 	}
 
 	@Override
 	public void remove(int tno) throws Exception {
-		// TODO Auto-generated method stub
+		mapper.deleteDetail(tno);
+		mapper.delete(tno);
 
 	}
 

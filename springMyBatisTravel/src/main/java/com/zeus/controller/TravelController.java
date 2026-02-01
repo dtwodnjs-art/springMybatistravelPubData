@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -46,7 +48,7 @@ public class TravelController {
 	
 	@PostMapping("/insert")
 	public String insert(Travel travel, TravelDetail detail, Model model) {
-		//TODO: process POST request
+		
 		try {
 			travelService.register(travel, detail);
 	        model.addAttribute("message", "새로운 여행 계획이 등록되었습니다!");
@@ -58,6 +60,54 @@ public class TravelController {
 		}
 		
 	}
+	
+	@GetMapping("/detail")
+	public String detail(int tno,Model model) throws Exception {
+		log.info("여행 상세 보기 접속: " + tno);
+		model.addAttribute("travel", travelService.read(tno));
+	    model.addAttribute("detail", travelService.readDetail(tno));
+	    
+	    return "travel/detail"; 
+	}
+	
+	@GetMapping("/modifyForm")
+	public String modifyForm(int tno,Model model) throws Exception {
+		model.addAttribute("travel", travelService.read(tno));
+	    model.addAttribute("detail", travelService.readDetail(tno));
+	    return "travel/modifyForm"; 
+	}
+	
+	@PostMapping("/modify")
+	public String modify(Travel travel, TravelDetail detail, Model model) {
+		//TODO: process POST request
+		try {
+			travelService.modify(travel, detail);
+	        model.addAttribute("message", "여행 계획이 성공적으로 수정되었습니다.");
+	        return "travel/success";
+		} catch (Exception e) {
+			e.printStackTrace();
+	        model.addAttribute("message", "수정 중 오류가 발생했습니다.");
+	        return "travel/failed";
+		}
+		
+	}
+	
+	@GetMapping("/remove")
+	public String remove(int tno, Model model) {
+		//TODO: process POST request
+		try {
+			travelService.remove(tno);
+	        model.addAttribute("message", tno + "번 여행 계획이 삭제되었습니다.");
+	        return "travel/success";
+		} catch (Exception e) {
+			e.printStackTrace();
+	        model.addAttribute("message", "수정 중 오류가 발생했습니다.");
+	        return "travel/failed";
+		}
+		
+	}
+	
+	
 	
 	
 

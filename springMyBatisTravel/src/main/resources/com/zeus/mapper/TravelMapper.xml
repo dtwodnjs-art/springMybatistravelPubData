@@ -3,17 +3,21 @@
 <mapper namespace="com.zeus.mapper.TravelMapper">
 
 	<select id="list" resultType="com.zeus.domain.Travel">
-		SELECT tno, title, destination, trip_date as tripDate, regdate, moddate
+		SELECT tno, title, destination,
+		trip_date as tripDate, regdate, moddate
 		FROM travel_info
-		ORDER BY tno DESC
+		ORDER BY tno
+		DESC
 	</select>
 
 	<insert id="create" parameterType="com.zeus.domain.Travel">
 		<selectKey keyProperty="tno" resultType="int" order="BEFORE">
-			SELECT seq_travel.NEXTVAL FROM DUAL
+			SELECT
+			seq_travel.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO travel_info (tno, title, destination, trip_date)
-		VALUES (#{tno}, #{title}, #{destination}, #{tripDate})
+		VALUES
+		(#{tno}, #{title}, #{destination}, #{tripDate})
 	</insert>
 
 	<insert id="createDetail"
@@ -21,5 +25,41 @@
 		INSERT INTO travel_detail (tno, transport, description)
 		VALUES (#{tno}, #{transport}, #{description})
 	</insert>
+
+	<select id="read" resultType="com.zeus.domain.Travel">
+		SELECT * FROM travel_info WHERE tno
+		= #{tno}
+	</select>
+
+	<select id="readDetail"
+		resultType="com.zeus.domain.TravelDetail">
+		SELECT * FROM travel_detail WHERE tno = #{tno}
+	</select>
+
+	<update id="update">
+		UPDATE travel_info
+		SET title = #{title},
+		destination =
+		#{destination},
+		trip_date = #{tripDate},
+		moddate = SYSDATE
+		WHERE tno =
+		#{tno}
+	</update>
+
+	<update id="updateDetail">
+		UPDATE travel_detail
+		SET transport = #{transport},
+		description = #{description}
+		WHERE tno = #{tno}
+	</update>
+
+	<delete id="deleteDetail">
+		DELETE FROM travel_detail WHERE tno = #{tno}
+	</delete>
+
+	<delete id="delete">
+		DELETE FROM travel_info WHERE tno = #{tno}
+	</delete>
 
 </mapper>
